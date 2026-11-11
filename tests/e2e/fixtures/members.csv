@@ -1,0 +1,3 @@
+nombre,dni,deporte,categoria_cuota,email,telefono,fecha_nacimiento,estado
+María González,32567890,Hockey,Junior,maria@example.com,11-000002,1995-03-20,active
+Carlos López,28901234,Natación,Adulto,carlos@example.com,11-000003,1985-07-10,active

@@ -1,0 +1,634 @@
+/* ─── Fuentes del club ─────────────────────────────────────────────────────── */
+
+@font-face {
+    font-family: 'Clash Display';
+    src: url('/fonts/clash-display/ClashDisplay-Variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ─── Tipografía global ─────────────────────────────────────────────────────── */
+
+body,
+.fi-body {
+    font-family: 'Satoshi', system-ui, sans-serif;
+}
+
+.fi-page-header-heading,
+.fi-header-heading,
+.fi-sidebar-nav-group-label,
+.fi-brand-name,
+h1, h2, h3 {
+    font-family: 'Clash Display', system-ui, sans-serif !important;
+}
+
+/* ─── Variables del club ───────────────────────────────────────────────────── */
+
+:root {
+    --club-red:       #D71F28;
+    --club-red-light: rgba(215, 31, 40, 0.12);
+    --club-red-glow:  rgba(215, 31, 40, 0.20);
+
+    /* Light mode palette */
+    --club-bg:            #f8fafc;
+    --club-card:          #ffffff;
+    --club-card2:         #f1f5f9;
+    --club-border:        #e2e8f0;
+    --club-text:          #1e293b;
+    --club-text-muted:    #64748b;
+}
+
+/* ─── KPI Stats Widget ──────────────────────────────────────────────────────── */
+
+.kpi-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--club-card);
+    border: 1px solid var(--club-border);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, var(--kpi-color), transparent 65%);
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.kpi-card:hover {
+    border-color: var(--kpi-color);
+    box-shadow: 0 0 0 1px var(--kpi-color), 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.kpi-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--kpi-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--kpi-color) 25%, transparent);
+    flex-shrink: 0;
+}
+
+.kpi-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    color: var(--kpi-color) !important;
+}
+
+.kpi-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.kpi-label {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--club-text-muted);
+    margin: 0;
+}
+
+.kpi-value {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--club-text);
+    line-height: 1;
+    margin: 0.15rem 0;
+    letter-spacing: -0.02em;
+}
+
+.kpi-subtext {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.72rem;
+    color: var(--kpi-color);
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ─── Monthly Fees Widget ───────────────────────────────────────────────────── */
+
+.mf-card {
+    background: var(--club-card);
+    border: 1px solid var(--club-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+}
+
+.mf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.mf-title {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--club-text);
+    margin: 0;
+}
+
+.mf-subtitle {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: var(--club-text-muted);
+    margin: 0.2rem 0 0;
+}
+
+.mf-bar-wrap {
+    margin-bottom: 1.25rem;
+}
+
+.mf-bar {
+    display: flex;
+    height: 10px;
+    border-radius: 9999px;
+    overflow: hidden;
+    background: var(--club-card2);
+    gap: 2px;
+}
+
+.mf-bar-segment {
+    height: 100%;
+    border-radius: 9999px;
+    transition: opacity 0.2s ease;
+}
+
+.mf-bar-segment:hover {
+    opacity: 0.8;
+}
+
+.mf-legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .mf-legend {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.mf-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mf-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.mf-legend-label {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.75rem;
+    color: var(--club-text-muted);
+    flex: 1;
+}
+
+.mf-legend-count {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--club-text);
+}
+
+.mf-legend-pct {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.68rem;
+    color: var(--club-text-muted);
+    min-width: 2.5rem;
+    text-align: right;
+}
+
+/* ─── Members Per Sport Widget ──────────────────────────────────────────────── */
+
+.ms-card {
+    background: var(--club-card);
+    border: 1px solid var(--club-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+}
+
+.ms-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.ms-title {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--club-text);
+    margin: 0;
+}
+
+.ms-total-badge {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--club-red);
+    background: var(--club-red-light);
+    border: 1px solid rgba(215, 31, 40, 0.25);
+    border-radius: 9999px;
+    padding: 0.2rem 0.7rem;
+}
+
+.ms-empty {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    color: var(--club-text-muted);
+    font-size: 0.85rem;
+}
+
+.ms-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ms-sport-row {
+    display: grid;
+    grid-template-columns: 7rem 1fr 2.5rem;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ms-sport-name {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--club-text-muted);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ms-bar-wrap {
+    height: 6px;
+    background: var(--club-card2);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.ms-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #8F0D14, #D71F28);
+    border-radius: 9999px;
+    transition: width 0.4s ease;
+}
+
+.ms-count {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--club-text);
+    text-align: right;
+}
+
+/* ─── Overdue Fees Semaphore Widget ─────────────────────────────────────────── */
+
+.sem-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--club-card);
+    border: 1px solid color-mix(in srgb, var(--sem-color) 25%, var(--club-border));
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.sem-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at left center, var(--sem-color), transparent 60%);
+    opacity: 0.04;
+    pointer-events: none;
+}
+
+.sem-indicator {
+    flex-shrink: 0;
+}
+
+.sem-dot-ring {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--sem-color) 35%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--sem-color) 10%, transparent);
+}
+
+.sem-dot {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--sem-color);
+    box-shadow: 0 0 8px var(--sem-color);
+}
+
+.sem-body {
+    flex: 1;
+}
+
+.sem-label {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--club-text-muted);
+    margin: 0 0 0.2rem;
+}
+
+.sem-value {
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--sem-color);
+    margin: 0 0 0.15rem;
+    line-height: 1;
+}
+
+.sem-ok {
+    font-size: 1.1rem;
+}
+
+.sem-message {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: var(--club-text-muted);
+    margin: 0;
+}
+
+.sem-status-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.sem-chip-icon {
+    width: 0.85rem;
+    height: 0.85rem;
+}
+
+.sem-status-ok {
+    background: rgba(52, 211, 153, 0.12);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    color: #059669;
+}
+
+.sem-status-warning {
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #d97706;
+}
+
+.sem-status-danger {
+    background: rgba(248, 113, 113, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.35);
+    color: #dc2626;
+}
+
+/* ─── Layout shell ──────────────────────────────────────────────────────── */
+
+.fi-body {
+    background-color: var(--club-bg) !important;
+}
+
+/* Sidebar container */
+.fi-sidebar {
+    background-color: var(--club-card) !important;
+    border-right: 1px solid var(--club-border) !important;
+    box-shadow: none !important;
+}
+
+/* Sidebar inner scrollable wrapper */
+.fi-sidebar-nav {
+    padding: 0.5rem 0.75rem !important;
+}
+
+/* Topbar */
+.fi-topbar,
+.fi-topbar-ctn {
+    background-color: var(--club-card) !important;
+    border-bottom: 1px solid var(--club-border) !important;
+    box-shadow: none !important;
+}
+
+/* Ocultar user menu de la topbar — reemplazado por sidebar-footer custom */
+.fi-topbar .fi-user-menu,
+.fi-topbar [x-data*="userMenu"],
+.fi-topbar button[aria-label*="user" i],
+.fi-topbar button[aria-label*="account" i],
+.fi-topbar-ctn > nav > ul > li:last-child {
+    display: none !important;
+}
+
+/* Content area */
+.fi-main-ctn {
+    background-color: var(--club-bg) !important;
+}
+
+.fi-main {
+    padding: 1.5rem !important;
+}
+
+/* ─── Sidebar nav items ─────────────────────────────────────────────────── */
+
+.fi-sidebar-item-btn {
+    border-radius: 8px !important;
+    padding: 0.5rem 0.75rem !important;
+    color: var(--club-text-muted) !important;
+    transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.fi-sidebar-item-btn:hover {
+    background-color: var(--club-red-light) !important;
+    color: var(--club-red) !important;
+}
+
+.fi-sidebar-item-btn:hover .fi-sidebar-item-icon {
+    color: var(--club-red) !important;
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-btn {
+    background-color: var(--club-red-light) !important;
+    color: var(--club-red) !important;
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+    color: var(--club-red) !important;
+}
+
+.fi-sidebar-item.fi-active .fi-sidebar-item-label {
+    color: var(--club-red) !important;
+    font-weight: 600 !important;
+}
+
+.fi-sidebar-item-label {
+    font-family: 'Satoshi', system-ui, sans-serif !important;
+    font-size: 0.875rem !important;
+}
+
+.fi-sidebar-nav-group-label {
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: var(--club-text-muted) !important;
+    padding: 0 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+/* ─── Sidebar footer — usuario + logout ─────────────────────────────────── */
+
+.club-sidebar-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    margin: 0 0 0.5rem;
+    border-top: 1px solid var(--club-border);
+    background-color: var(--club-card);
+}
+
+.club-sidebar-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.club-sidebar-user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--club-red-light);
+    border: 1px solid rgba(215, 31, 40, 0.25);
+    font-family: 'Clash Display', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--club-red);
+    flex-shrink: 0;
+}
+
+.club-sidebar-user-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+}
+
+.club-sidebar-user-name {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--club-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.club-sidebar-user-role {
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-size: 0.68rem;
+    color: var(--club-text-muted);
+    display: block;
+}
+
+.club-sidebar-logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--club-border);
+    background: transparent;
+    color: var(--club-text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.club-sidebar-logout-btn:hover {
+    background-color: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.club-sidebar-logout-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Club Rojo: solid red primary buttons (Filament derives a light shade from the hex otherwise). */
+.fi-btn.fi-color-primary:not(.fi-outlined):not(.fi-link) {
+    background-color: #D71F28 !important;
+    color: #ffffff !important;
+}
+.fi-btn.fi-color-primary:not(.fi-outlined):not(.fi-link):hover {
+    background-color: #A8141C !important;
+}
