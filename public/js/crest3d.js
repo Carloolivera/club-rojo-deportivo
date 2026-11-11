@@ -97,13 +97,16 @@ function start(renderer) {
   body.position.z = -0.1;
   crest.add(body);
 
-  // Diagonal white sash, clipped to the body by building it as a thin band and scaling inside
+  // Diagonal white sash: a parallelogram that ends exactly on the inner edges of the shield (x = ±0.81).
+  const edge = 0.81, slope = Math.tan(THREE.MathUtils.degToRad(18)), half = 0.17;
   const sashShape = new THREE.Shape();
-  sashShape.moveTo(-1.2, -0.17); sashShape.lineTo(1.2, -0.17); sashShape.lineTo(1.2, 0.17); sashShape.lineTo(-1.2, 0.17); sashShape.closePath();
-  const sash = new THREE.Mesh(new THREE.ExtrudeGeometry(sashShape, { depth: 0.06, bevelEnabled: false }), white);
-  sash.rotation.z = THREE.MathUtils.degToRad(18);
+  sashShape.moveTo(-edge, -edge * slope - half);
+  sashShape.lineTo(edge, edge * slope - half);
+  sashShape.lineTo(edge, edge * slope + half);
+  sashShape.lineTo(-edge, -edge * slope + half);
+  sashShape.closePath();
+  const sash = new THREE.Mesh(new THREE.ExtrudeGeometry(sashShape, { depth: 0.05, bevelEnabled: false }), white);
   sash.position.set(0, 0.06, 0.2);
-  sash.scale.set(0.64, 1, 1);
   crest.add(sash);
 
   const starMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(star(0.2, 0.085), { depth: 0.07, ...bevel, bevelSize: 0.012, bevelThickness: 0.012 }), white);
