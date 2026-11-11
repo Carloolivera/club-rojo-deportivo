@@ -43,7 +43,7 @@ class EncryptedCastsTest extends TestCase
 
         $row = DB::table('members')->where('id', $member->id)->first();
         $this->assertNotEquals('30111222', $row->dni, 'DNI debe estar cifrado');
-        $this->assertEquals(hash('sha256', '30111222'), $row->dni_hash, 'dni_hash debe ser SHA-256 del DNI');
+        $this->assertEquals(\App\Support\Dni::hash((string) '30111222'), $row->dni_hash, 'dni_hash debe ser la huella HMAC del DNI');
     }
 
     public function test_model_desencripta_automaticamente(): void

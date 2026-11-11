@@ -38,7 +38,7 @@ class Member extends Model
             set: function (string $value) {
                 return [
                     'dni' => encrypt($value),
-                    'dni_hash' => hash('sha256', $value),
+                    'dni_hash' => \App\Support\Dni::hash((string) $value),
                 ];
             },
         );

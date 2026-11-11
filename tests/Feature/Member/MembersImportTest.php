@@ -48,7 +48,7 @@ class MembersImportTest extends TestCase
         $this->assertSame(1, $import->imported);
         $this->assertSame(0, $import->skipped);
         $this->assertEmpty($import->errors);
-        $this->assertDatabaseHas('members', ['dni_hash' => hash('sha256', '12345678')]);
+        $this->assertDatabaseHas('members', ['dni_hash' => \App\Support\Dni::hash((string) '12345678')]);
     }
 
     public function test_omite_socio_con_dni_duplicado(): void
@@ -127,7 +127,7 @@ class MembersImportTest extends TestCase
         ]));
 
         $this->assertSame(1, $import->imported);
-        $member = Member::where('dni_hash', hash('sha256', '87654321'))->first();
+        $member = Member::where('dni_hash', \App\Support\Dni::hash((string) '87654321'))->first();
         $this->assertTrue($member->is_minor);
     }
 
@@ -142,7 +142,7 @@ class MembersImportTest extends TestCase
 
         $this->assertSame(1, $import->imported);
         // email y phone nulos se guardan como null cifrado → verificar vía modelo
-        $member = Member::where('dni_hash', hash('sha256', '99999999'))->first();
+        $member = Member::where('dni_hash', \App\Support\Dni::hash((string) '99999999'))->first();
         $this->assertNotNull($member);
         $this->assertNull($member->getRawOriginal('email'));
         $this->assertNull($member->getRawOriginal('phone'));
@@ -154,7 +154,7 @@ class MembersImportTest extends TestCase
         $import->collection($this->makeRows(['estado' => '']));
 
         $this->assertSame(1, $import->imported);
-        $member = Member::where('dni_hash', hash('sha256', '12345678'))->first();
+        $member = Member::where('dni_hash', \App\Support\Dni::hash((string) '12345678'))->first();
         $this->assertSame('pending', $member->status);
     }
 

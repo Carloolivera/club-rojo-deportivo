@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureSportScope;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
 use App\Providers\FortifyServiceProvider;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Behind Traefik on the server: trust its forwarded host, scheme and client IP.
+        $middleware->trustProxies(at: '*');
+        $middleware->append(SecurityHeaders::class);
         $middleware->web(append: [
             SetLocale::class,
         ]);

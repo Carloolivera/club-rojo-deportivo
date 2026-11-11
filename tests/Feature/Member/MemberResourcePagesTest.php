@@ -59,7 +59,7 @@ class MemberResourcePagesTest extends TestCase
             ->call('create')
             ->assertHasNoFormErrors();
 
-        $this->assertDatabaseHas('members', ['dni_hash' => hash('sha256', '55556666')]);
+        $this->assertDatabaseHas('members', ['dni_hash' => \App\Support\Dni::hash((string) '55556666')]);
     }
 
     public function test_create_detiene_menor_sin_guardian(): void
@@ -79,7 +79,7 @@ class MemberResourcePagesTest extends TestCase
             ])
             ->call('create');
 
-        $this->assertDatabaseMissing('members', ['dni_hash' => hash('sha256', '44445555')]);
+        $this->assertDatabaseMissing('members', ['dni_hash' => \App\Support\Dni::hash((string) '44445555')]);
     }
 
     // ── ViewMember ────────────────────────────────────────────────

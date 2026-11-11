@@ -16,6 +16,9 @@ class E2ESeeder extends Seeder
 {
     public function run(): void
     {
+        // Creates a user with a well-known password: never on a public server.
+        abort_if(app()->isProduction(), 403, 'E2ESeeder is for local test runs only.');
+
         $this->call([
             RoleSeeder::class,
             SportSeeder::class,

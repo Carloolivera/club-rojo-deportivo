@@ -98,7 +98,7 @@ class FactoriesTest extends TestCase
         $member = Member::factory()->create();
 
         $this->assertEquals(
-            hash('sha256', $member->dni),
+            \App\Support\Dni::hash((string) $member->dni),
             $member->dni_hash
         );
     }

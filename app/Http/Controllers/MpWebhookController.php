@@ -15,13 +15,15 @@ class MpWebhookController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
+        // Without a configured secret any signature could be forged: refuse instead.
+        abort_if(blank(config('mercadopago.webhook_secret')), 503);
+
         $xSignature = $request->header('x-signature', '');
         $xRequestId = $request->header('x-request-id', '');
         $dataId     = $request->input('data.id', '');
 
         if (! $this->mp->validateWebhookSignature($xSignature, $dataId, $xRequestId)) {
             Log::warning('MP webhook: firma inválida', [
-                'x_signature' => $xSignature,
                 'data_id'     => $dataId,
             ]);
             return response()->json(['error' => 'Invalid signature'], 401);

@@ -38,7 +38,7 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): string => '<link rel="stylesheet" href="' . asset('css/admin-theme.css') . '">'
-                    . '<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>',
+                    . '<script src="' . asset('js/vendor/chart-4.4.2.umd.js') . '"></script>',
             )
             ->renderHook(
                 PanelsRenderHook::SIDEBAR_FOOTER,

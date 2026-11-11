@@ -15,7 +15,8 @@ class LocaleController extends Controller
 
         // Only redirect back to our own site, never to a URL supplied by the visitor.
         $previous = url()->previous();
-        $target = str_starts_with($previous, url('/')) ? $previous : route('landing');
+        $sameHost = parse_url($previous, PHP_URL_HOST) === $request->getHost();
+        $target = $sameHost ? $previous : route('landing');
 
         return redirect()->to($target);
     }

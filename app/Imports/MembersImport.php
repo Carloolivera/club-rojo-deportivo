@@ -67,7 +67,7 @@ class MembersImport implements ToCollection, WithHeadingRow
             }
 
             // Verificar duplicado por DNI
-            $dniHash = hash('sha256', $data['dni']);
+            $dniHash = \App\Support\Dni::hash((string) $data['dni']);
             if (Member::where('dni_hash', $dniHash)->exists()) {
                 $this->errors[] = "Fila {$line}: DNI {$data['dni']} ya existe — omitido.";
                 $this->skipped++;

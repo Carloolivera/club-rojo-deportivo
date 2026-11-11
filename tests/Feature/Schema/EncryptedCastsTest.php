@@ -50,7 +50,7 @@ class EncryptedCastsTest extends TestCase
             'consent_ip' => '127.0.0.1',
         ]);
 
-        $expected = hash('sha256', '28456789');
+        $expected = \App\Support\Dni::hash((string) '28456789');
         $this->assertEquals($expected, $member->fresh()->dni_hash);
     }
 
@@ -130,7 +130,7 @@ class EncryptedCastsTest extends TestCase
             'consent_ip' => '127.0.0.1',
         ]);
 
-        $found = Member::where('dni_hash', hash('sha256', '31111111'))->first();
+        $found = Member::where('dni_hash', \App\Support\Dni::hash((string) '31111111'))->first();
 
         $this->assertNotNull($found);
         $this->assertEquals('31111111', $found->dni);

@@ -75,7 +75,7 @@ class RightToErasureTest extends TestCase
         $newHash = $member->fresh()->getRawOriginal('dni_hash');
         $this->assertNotEquals($originalHash, $newHash);
         // el hash ya no corresponde al DNI original → portal no lo encuentra
-        $this->assertNotEquals(hash('sha256', '30111222'), $newHash);
+        $this->assertNotEquals(\App\Support\Dni::hash((string) '30111222'), $newHash);
     }
 
     public function test_manager_no_puede_anonimizar(): void

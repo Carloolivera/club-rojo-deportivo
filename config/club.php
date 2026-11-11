@@ -13,6 +13,9 @@ return [
     'facebook'      => env('CLUB_FACEBOOK', ''),
     'cuit'          => '00-00000000-0',
 
+    // Key for the DNI lookup fingerprint (see App\Support\Dni). Falls back to APP_KEY.
+    'dni_key'       => env('DNI_KEY'),
+
     // Languages offered on the public site and the admin panel.
     'locales'       => ['es', 'en', 'pt'],
 ];

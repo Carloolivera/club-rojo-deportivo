@@ -335,7 +335,7 @@ class MemberResource extends Resource
                     ])
                     ->query(fn (Builder $query, array $data) => $query->when(
                         $data['dni_value'],
-                        fn ($q) => $q->where('dni_hash', hash('sha256', trim($data['dni_value'])))
+                        fn ($q) => $q->where('dni_hash', \App\Support\Dni::hash((string) trim($data['dni_value'])))
                     )
                     )
                     ->label('Buscar por DNI'),

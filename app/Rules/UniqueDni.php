@@ -12,7 +12,7 @@ class UniqueDni implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $hash = hash('sha256', trim((string) $value));
+        $hash = \App\Support\Dni::hash((string) trim((string) $value));
         $query = Member::where('dni_hash', $hash);
 
         if ($this->exceptMemberId) {

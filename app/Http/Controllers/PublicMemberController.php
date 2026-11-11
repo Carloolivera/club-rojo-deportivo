@@ -18,9 +18,9 @@ class PublicMemberController extends Controller
 
     public function check(Request $request): JsonResponse
     {
-        $request->validate(['dni' => 'required|string']);
+        $request->validate(['dni' => ['required', 'regex:/^\d{7,8}$/']]);
 
-        $hash = hash('sha256', $request->string('dni'));
+        $hash = \App\Support\Dni::hash((string) $request->string('dni'));
         $member = Member::where('dni_hash', $hash)->first();
 
         if (! $member) {

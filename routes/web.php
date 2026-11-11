@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/fees/export/excel', function (Request $request) {
         abort_unless(\Illuminate\Support\Facades\Gate::allows('view-reports'), 403);
         $period = $request->get('period', now()->format('Y-m'));
+        abort_unless(preg_match('/^\d{4}-\d{2}$/', (string) $period), 422);
         return \Maatwebsite\Excel\Facades\Excel::download(
             new \App\Exports\FeesExport($period),
             "cuotas-{$period}.xlsx"
@@ -141,6 +142,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/fees/export/pdf', function (Request $request) {
         abort_unless(\Illuminate\Support\Facades\Gate::allows('view-reports'), 403);
         $period = $request->get('period', now()->format('Y-m'));
+        abort_unless(preg_match('/^\d{4}-\d{2}$/', (string) $period), 422);
         $fees   = \App\Models\Fee::with('member.sport')
             ->forPeriod($period)
             ->orderBy('status')
