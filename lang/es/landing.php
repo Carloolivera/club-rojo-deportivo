@@ -22,6 +22,7 @@ return [
         'line3'   => 'corazón.',
         'sub'     => 'Ocho disciplinas, una sola camiseta. Formamos deportistas, amigos y familias hace más de 75 años.',
         'cta'     => 'Quiero ser socio',
+        'scroll'  => 'Bajá',
         'cta2'    => 'Ver disciplinas',
     ],
 
@@ -36,6 +37,8 @@ return [
         'tag'        => 'Disciplinas',
         'title'      => 'Un deporte para cada uno',
         'sub'        => 'Escuelas desde los 5 años, equipos competitivos y actividades para toda la familia.',
+        'also'       => 'Y además',
+        'swipe'      => 'Bajá y mirá cómo se mueven',
         'more_title' => 'Más disciplinas',
         'more_text'  => 'Estamos sumando actividades nuevas. Contanos cuál te gustaría.',
         'names' => [
@@ -107,6 +110,7 @@ return [
         'about'    => 'Club social y deportivo. Fundado en :year.',
         'sports'   => 'Disciplinas',
         'contact'  => 'Contacto',
+        'whatsapp'   => 'Escribinos por WhatsApp',
         'admin'    => 'Ingreso administración',
         'rights'   => 'Todos los derechos reservados.',
         'built'    => 'Demo hecha con Laravel 12, Filament 4 y PHP 8.',

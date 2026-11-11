@@ -72,4 +72,11 @@ class LocaleAndSecurityTest extends TestCase
         $this->postJson('/estado/check', ['dni' => "1' OR '1'='1"])
             ->assertStatus(422);
     }
+
+    public function test_admin_entrance_is_hidden_behind_the_crest(): void
+    {
+        $this->get('/')
+            ->assertDontSee('href="/admin"', false)
+            ->assertSee('id="crest" data-admin="/admin"', false);
+    }
 }
