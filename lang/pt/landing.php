@@ -22,6 +22,7 @@ return [
         'line3'   => 'coração.',
         'sub'     => 'Oito modalidades, uma só camisa. Formamos atletas, amigos e famílias há mais de 75 anos.',
         'cta'     => 'Quero ser sócio',
+        'scroll'  => 'Role',
         'cta2'    => 'Ver modalidades',
     ],
 
@@ -36,6 +37,8 @@ return [
         'tag'        => 'Modalidades',
         'title'      => 'Um esporte para cada um',
         'sub'        => 'Escolinhas a partir dos 5 anos, equipes competitivas e atividades para toda a família.',
+        'also'       => 'E também',
+        'swipe'      => 'Role e veja o movimento',
         'more_title' => 'Mais modalidades',
         'more_text'  => 'Estamos incluindo novas atividades. Conte qual você gostaria.',
         'names' => [
@@ -107,6 +110,7 @@ return [
         'about'    => 'Clube social e esportivo. Fundado em :year.',
         'sports'   => 'Modalidades',
         'contact'  => 'Contato',
+        'whatsapp'   => 'Fale conosco no WhatsApp',
         'admin'    => 'Acesso da administração',
         'rights'   => 'Todos os direitos reservados.',
         'built'    => 'Demo feita com Laravel 12, Filament 4 e PHP 8.',

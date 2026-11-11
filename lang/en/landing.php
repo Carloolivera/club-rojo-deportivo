@@ -22,6 +22,7 @@ return [
         'line3'   => 'hearts.',
         'sub'     => 'Eight sports, one jersey. Raising athletes, friends and families for more than 75 years.',
         'cta'     => 'Become a member',
+        'scroll'  => 'Scroll',
         'cta2'    => 'See our sports',
     ],
 
@@ -36,6 +37,8 @@ return [
         'tag'        => 'Sports',
         'title'      => 'A sport for everyone',
         'sub'        => 'Schools from age 5, competitive teams and activities for the whole family.',
+        'also'       => 'And also',
+        'swipe'      => 'Scroll and watch them move',
         'more_title' => 'More sports',
         'more_text'  => 'We are adding new activities. Tell us which one you would like.',
         'names' => [
@@ -107,6 +110,7 @@ return [
         'about'    => 'Sports and social club. Founded in :year.',
         'sports'   => 'Sports',
         'contact'  => 'Contact',
+        'whatsapp'   => 'Message us on WhatsApp',
         'admin'    => 'Staff login',
         'rights'   => 'All rights reserved.',
         'built'    => 'Demo built with Laravel 12, Filament 4 and PHP 8.',
