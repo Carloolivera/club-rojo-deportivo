@@ -3,7 +3,10 @@ import { Page, expect } from '@playwright/test'
 export class AdminPage {
     constructor(readonly page: Page) {}
 
-    async login(email = 'admin@club.com', password = 'password') {
+    async login(
+        email = process.env.E2E_ADMIN_EMAIL ?? 'admin@club.com',
+        password = process.env.E2E_ADMIN_PASSWORD ?? 'password',
+    ) {
         await this.page.goto('/admin/login', { waitUntil: 'domcontentloaded' })
         await this.page.getByLabel('Email address').fill(email)
         await this.page.locator('input[type="password"]').fill(password)

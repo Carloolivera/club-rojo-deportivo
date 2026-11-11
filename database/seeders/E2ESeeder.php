@@ -30,7 +30,7 @@ class E2ESeeder extends Seeder
             ['email' => 'admin@club.com'],
             [
                 'name' => 'Admin E2E',
-                'password' => Hash::make('password'),
+                'password' => Hash::make(env('E2E_ADMIN_PASSWORD', 'password')),
             ]
         );
         $admin->assignRole('admin');
