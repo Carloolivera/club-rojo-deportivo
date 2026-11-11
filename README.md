@@ -88,11 +88,23 @@ php artisan migrate --seed     # crea la base con socios de ejemplo
 php artisan serve              # http://localhost:8000
 ```
 
+Crear el usuario del panel (pide la contraseña sin mostrarla):
+
+```bash
+php artisan club:admin tu@correo.com
+```
+
 Pruebas:
 
 ```bash
 php artisan test
 ```
+
+## Publicarla en un servidor
+
+`Dockerfile` (PHP 8.3 + Nginx) y `deploy/compose.yml`: la app, MySQL en una red interna sin salida y un
+contenedor para las tareas programadas, cada uno con tope de memoria. `deploy/publicar.sh` sube el último commit,
+crea las claves en el servidor la primera vez y levanta solo estos contenedores.
 
 ## Tareas programadas
 
