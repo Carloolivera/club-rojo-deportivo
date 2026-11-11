@@ -103,7 +103,7 @@ function start(renderer) {
   const sash = new THREE.Mesh(new THREE.ExtrudeGeometry(sashShape, { depth: 0.06, bevelEnabled: false }), white);
   sash.rotation.z = THREE.MathUtils.degToRad(18);
   sash.position.set(0, 0.06, 0.2);
-  sash.scale.set(0.74, 1, 1);
+  sash.scale.set(0.64, 1, 1);
   crest.add(sash);
 
   const starMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(star(0.2, 0.085), { depth: 0.07, ...bevel, bevelSize: 0.012, bevelThickness: 0.012 }), white);
