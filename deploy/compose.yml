@@ -1,0 +1,87 @@
+# Demo on the AIDO server, next to other client apps.
+# Isolation: own MySQL on an internal network, memory and process limits,
+# no privilege escalation. Traefik (Coolify) publishes only the app container.
+name: club-rojo
+
+services:
+  app:
+    build: /srv/club-rojo
+    image: club-rojo-app:local
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      AUTORUN_ENABLED: "true"            # migrate --force + config/route/view cache on start
+      PHP_OPCACHE_ENABLE: "1"
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 384m
+    pids_limit: 200
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - storage:/var/www/html/storage
+    networks: [coolify, interna]
+    labels:
+      traefik.enable: "true"
+      traefik.docker.network: coolify
+      traefik.http.services.club-rojo.loadbalancer.server.port: "8080"
+
+      traefik.http.routers.club-rojo-http.rule: Host(`club-rojo.138-36-238-182.sslip.io`)
+      traefik.http.routers.club-rojo-http.entrypoints: http
+      traefik.http.routers.club-rojo-http.middlewares: club-rojo-https
+      traefik.http.middlewares.club-rojo-https.redirectscheme.scheme: https
+
+      traefik.http.routers.club-rojo.rule: Host(`club-rojo.138-36-238-182.sslip.io`)
+      traefik.http.routers.club-rojo.entrypoints: https
+      traefik.http.routers.club-rojo.tls.certresolver: letsencrypt
+      traefik.http.routers.club-rojo.middlewares: club-rojo-noindex
+      traefik.http.middlewares.club-rojo-noindex.headers.customresponseheaders.X-Robots-Tag: noindex, nofollow
+
+  # Runs the scheduled commands (monthly fees, overdue marking, alerts).
+  scheduler:
+    image: club-rojo-app:local
+    restart: unless-stopped
+    command: ["php", "/var/www/html/artisan", "schedule:work"]
+    env_file: .env
+    depends_on:
+      app:
+        condition: service_started
+    mem_limit: 128m
+    pids_limit: 50
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: ["CMD", "php", "-v"]
+    volumes:
+      - storage:/var/www/html/storage
+    networks: [interna]
+
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    command: ["--innodb-buffer-pool-size=64M", "--performance-schema=OFF"]
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:?falta}
+      MYSQL_USER: ${DB_USERNAME:?falta}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?falta}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    mem_limit: 512m
+    pids_limit: 200
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - db:/var/lib/mysql
+    networks: [interna]
+
+volumes:
+  storage:
+  db:
+
+networks:
+  coolify:
+    external: true
+  interna:
+    internal: true
