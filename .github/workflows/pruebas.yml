@@ -1,0 +1,42 @@
+name: Pruebas
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: Pruebas y auditoría de dependencias
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, gd, zip, intl, bcmath, sodium
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Dependencias PHP
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Dependencias del front y compilación
+        run: npm ci && npm run build
+
+      - name: Preparar entorno
+        run: cp .env.example .env && php artisan key:generate
+
+      - name: Pruebas (Pest)
+        run: php artisan test
+
+      - name: Auditoría de dependencias PHP
+        run: composer audit
