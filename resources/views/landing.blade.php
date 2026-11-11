@@ -268,6 +268,6 @@
   <script src="/js/vendor/gsap.min.js" defer></script>
   <script src="/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="/js/landing.js?v=2" defer></script>
-  <script type="module" src="/js/crest3d.js?v=3"></script>
+  <script type="module" src="/js/crest3d.js?v=4"></script>
 </body>
 </html>
